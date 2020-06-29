@@ -1,2 +1,2 @@
-LastLayerDense = 32
-LastLayerActivationFunction = 'relu'
+NewLastLayerDense1 = 1
+NewLastLayerActivationFunction1 = 'softmax'
