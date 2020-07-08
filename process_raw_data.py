@@ -75,12 +75,12 @@ except FileExistsError:
     pass
 
 print(len(items))
-for i in range(0, len(items), BATCH_SIZE):
-    get_pandas_dataframe(items[i: i + BATCH_SIZE]).to_csv('processed_data/' + str(i) + '.csv')
-    print('Batch ', str(i/BATCH_SIZE), ' finished')
+# for i in range(0, len(items), BATCH_SIZE):
+#     get_pandas_dataframe(items[i: i + BATCH_SIZE]).to_csv('processed_data/' + str(i) + '.csv')
+#     print('Batch ', str(i/BATCH_SIZE), ' finished')
 # get_pandas_dataframe(items[:20]).to_csv('processed_data/1.csv')
-# df = pd.read_csv('processed_data/1.csv')
-# print(df['lead0'].apply(lambda x: x.split(',')))
+df = pd.read_csv('processed_data/0.csv')
+print(df['lead0'].apply(lambda x: x.split(',')).iloc[0])
 # df = pd.read_hdf('processed_data/1.h5')
 # print(df)
 # for r in range(0, len(items), BATCH_SIZE):
