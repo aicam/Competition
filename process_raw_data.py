@@ -5,7 +5,6 @@ from scipy.io import loadmat
 import glob
 
 def read_classes_from_head_files(file):
-    my_list = []
     my_dict = dict.fromkeys(['name', 'Hx', 'Rx', 'Dx', 'Sex', 'Age'])
     my_dict['name'] = file.split('.')[0]
     with open(file, 'r') as f:
@@ -22,8 +21,7 @@ def read_classes_from_head_files(file):
                 my_dict['Sex'] = line.split(': ')[1].rstrip()
             if line.startswith('#Age'):
                 my_dict['Age'] = line.split(': ')[1].rstrip()
-    my_list.append(my_dict)
-    return my_list
+    return my_dict
 
 def read_classes_from_mat_files(file):
     leads = ['name']
@@ -48,10 +46,15 @@ def convert_lead_to_str(lead_array):
 def get_joined_data(files):
     head_data = read_classes_from_head_files(files[0])
     mat_data = read_classes_from_mat_files(files[1])
-    new_dict = dict(head_data[0], **mat_data)
+    new_dict = {'name': mat_data['name'], 'lead1': mat_data['lead1'], 'lead2': mat_data['lead1'], 'lead3': mat_data['lead3'], 'lead4': mat_data['lead4'], 'lead5': mat_data['lead5'], 'lead6': mat_data['lead6'], 'lead7': mat_data['lead7'], 'lead8':mat_data['lead8'], 'lead9': mat_data['lead9'], 'lead10': mat_data['lead10'], 'lead11': mat_data['lead11'], 'lead0': mat_data['lead0'], 'Dx':head_data['Dx'],  'Hx':head_data['Hx'], 'Sx': head_data['Sx'], 'Rx': head_data['Rx'], 'Sex': head_data['Sex'], 'Age': head_data['Age']}
     return new_dict
 
-def get_pandas_dataframe(dicts):
+def get_pandas_dataframe(batch_files):
+    datas = []
+    for file in batch_files:
+        datas.append(get_joined_data(file))
+    return pd.DataFrame(datas)
+
 
 items = [[item.replace('.mat', '.hea'), item] for item in glob.glob('dataset/*.mat')]
-get_joined_data(items[0])
+print(get_pandas_dataframe(items[:20])['lead0'])
