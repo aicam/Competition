@@ -11,12 +11,13 @@ def convert_df(df):
 
 def padding(arr):
     x = np.zeros([arr.shape[0], CNNInputShape[1], CNNInputShape[0]])
+    x_in = np.zeros([arr.shape[0], CNNInputShape[0], CNNInputShape[1]])
     for i in range(len(arr)):
         for j in range(12):
             x[i][j][:len(arr[i][j])] = arr[i][j]
     for i in range(len(x)):
-        x[i] = x[i].reshape(CNNInputShape)
-    return x
+        x_in[i] = np.transpose(x[i])
+    return x_in
 
 def get_labels_array(labels, Dx):
     Y = []

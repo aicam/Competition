@@ -3,7 +3,7 @@ import pandas as pd
 from TrainUtils.model import *
 callbacks = [tf.keras.callbacks.ModelCheckpoint(filepath='best_model.h5',
                                             monitor='val_loss',
-                                            save_best_only=True), ]
+                                            save_best_only=True) ]
 model, feature_model = build_network()
 for i in range(20):
     df = pd.read_csv('processed_data/' + str(i*200) + '.csv')
