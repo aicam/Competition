@@ -10,12 +10,12 @@ for i in range(20):
     learning_cols = [it for it in df.columns if it.__contains__('lead')]
     arr = convert_df(df[learning_cols].to_numpy())
     X = padding(arr)
-
+    print(X.shape)
     labels_df = pd.read_csv('./supporting_materials/snomed_ct_codes.csv')
     labels = dict((e, 0) for e in labels_df['SNOMED CT Code'])
     Y = get_labels_array(labels, df['Dx'].to_numpy())
     history = model.fit(
-        X, Y,
+        np.array(X), np.array(Y),
         epochs=100,
         callbacks=callbacks,
     )

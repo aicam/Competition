@@ -26,5 +26,5 @@ def get_labels_array(labels, Dx):
         lbls = [int(it) for it in item.split(',')]
         for lb in lbls:
             new_y[lb] = 1
-        Y.append(new_y.values())
+        Y.append([it for it in new_y.values()])
     return Y
