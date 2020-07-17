@@ -26,7 +26,7 @@ def f1_loss(y_true, y_pred):
 
 
 def build_network():
-    im_shape= (72000, 12)
+    im_shape= CNNInputShape
     inputs_cnn=Input(shape=(im_shape), name='inputs_cnn')
     conv1_1=Convolution1D(64, (6), activation='relu', input_shape=im_shape)(inputs_cnn)
     conv1_1=BatchNormalization()(conv1_1)
@@ -38,19 +38,19 @@ def build_network():
     conv3_1=BatchNormalization()(conv3_1)
     pool3=MaxPool1D(pool_size=(2), strides=(2), padding="same")(conv3_1)
     flatten=Flatten()(pool3)
-    dense_end1 = Dense(128, activation='relu')(flatten)
-    main_output = Dense(94, activation='softmax', name='main_output')(dense_end1)
+    dense_end1 = Dense(512, activation='relu')(flatten)
+    main_output = Dense(NumberOfCodes, activation='softmax', name='main_output')(dense_end1)
 
 
     model = Model(inputs= inputs_cnn, outputs=main_output)
     model.compile(optimizer='adam',
                     loss=f1_loss,
                     metrics = [tfa.metrics.FBetaScore(
-                                num_classes=94,
+                                num_classes=NumberOfCodes,
                                 beta= 2.0,
                                 name = 'fbeta_score'),
                                 tfa.metrics.F1Score(
-                                    num_classes= 94,
+                                    num_classes= NumberOfCodes,
                                     name = 'f1_score')])
 
     # history=model.fit(X_train, y_train,

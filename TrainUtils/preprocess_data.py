@@ -1,8 +1,7 @@
 import numpy as np
-
+from .config import *
 def convert_df(df):
-    learning_cols = [it for it in df.columns if it.__contains__('lead')]
-    arr = df[learning_cols].to_numpy()
+    arr = df
     for i in range(len(arr)):
         for j in range(len(arr[i])):
             arr[i][j] = arr[i][j].split(',')
@@ -11,10 +10,12 @@ def convert_df(df):
     return arr
 
 def padding(arr):
-    x = np.zeros([arr.shape[0], 12, 94000])
+    x = np.zeros([arr.shape[0], CNNInputShape[1], CNNInputShape[0]])
     for i in range(len(arr)):
         for j in range(12):
             x[i][j][:len(arr[i][j])] = arr[i][j]
+    for i in range(len(x)):
+        x[i] = x[i].reshape(CNNInputShape)
     return x
 
 def get_labels_array(labels, Dx):
@@ -25,3 +26,4 @@ def get_labels_array(labels, Dx):
         for lb in lbls:
             new_y[lb] = 1
         Y.append(new_y.values())
+    return Y
