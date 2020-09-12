@@ -1,2 +1,8 @@
-a = {1:0, 2: 0, 3: 0}
-print(type([it for it in a.values()]))
+import csv
+a = [1231,312312,3123123]
+b = [1, 2, 3]
+wtr = csv.writer(open('out.csv', 'w'), delimiter=',', lineterminator='\n')
+
+
+
+wtr.writerow(['hello'])

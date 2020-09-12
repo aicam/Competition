@@ -4,7 +4,7 @@ def convert_df(df):
     arr = df
     for i in range(len(arr)):
         for j in range(len(arr[i])):
-            arr[i][j] = arr[i][j].split(',')
+            arr[i][j] = arr[i][j].split('a')
             arr[i][j] = np.genfromtxt(np.array(arr[i][j]))
 
     return arr

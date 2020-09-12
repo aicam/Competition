@@ -44,14 +44,8 @@ def build_network():
 
     model = Model(inputs= inputs_cnn, outputs=main_output)
     model.compile(optimizer='adam',
-                    loss=f1_loss,
-                    metrics = [tfa.metrics.FBetaScore(
-                                num_classes=NumberOfCodes,
-                                beta= 2.0,
-                                name = 'fbeta_score'),
-                                tfa.metrics.F1Score(
-                                    num_classes= NumberOfCodes,
-                                    name = 'f1_score')])
+                    loss=tf.keras.losses.CategoricalCrossentropy,
+                    )
 
     # history=model.fit(X_train, y_train,
     #                   epochs=40,callbacks=callbacks,
