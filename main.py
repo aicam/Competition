@@ -5,6 +5,8 @@ callbacks = [tf.keras.callbacks.ModelCheckpoint(filepath='best_model.h5',
                                             monitor='val_loss',
                                             save_best_only=True) ]
 model, feature_model = build_network()
+
+
 labels_df = pd.read_csv('./supporting_materials/snomed_ct_codes.csv')
 labels = dict((e, 0) for e in labels_df['SNOMED CT Code'])
 print(labels)
